@@ -7,7 +7,7 @@ import Ads3 from "../assets/Ad_3.png"
 const Ads = () => {
   return (
     <Container>
-        <div className='flex justify-between py-[200px]'>
+        <div className='flex justify-between py-[100px]'>
             <div className='w-5/12 '>
                 <img src={Ads1} alt="" />
             </div>
