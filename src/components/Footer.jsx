@@ -7,9 +7,9 @@ import { AiFillInstagram } from 'react-icons/ai'
 
 const Footer = () => {
   return (
-    <section className='bg-[#F5F5F3]'>
+    <section className='bg-[#F5F5F3] w-full'>
     <Container>
-        <div className='flex py-20'>
+        <div className='flex pt-[50px]'>
             <div className='w-1/6'>
                 <ul>
                     <li><a className='font-dm font-bold text-[12px] text-[#000]' href="#">MENU</a></li>
@@ -54,7 +54,7 @@ const Footer = () => {
             </div>
             <div className='w-2/6 pl-8'>
                 <img src={Logo} alt="" />
-                <div className=''><p className='pt-[100px] font-dm font-normal text-[14px] text-[#6D6D6D]'>2020 Orebi Minimal eCommerce Figma Template by Adveits</p></div>
+                <div className=''><p className='pt-[170px] font-dm font-normal text-[14px] text-[#6D6D6D]'>2020 Orebi Minimal eCommerce Figma Template by Adveits</p></div>
             </div>
         </div>
     </Container>
