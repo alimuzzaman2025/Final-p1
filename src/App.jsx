@@ -9,6 +9,19 @@ import { HiHeart } from "react-icons/hi";
 import { IoGitCompare } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
 
+import Product from "./pages/Product";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import { RouterProvider } from "react-router";
+import RootLayout from "./components/RootLayout";
+
+let router = createBrowserRouter(createRoutesFromElements(
+  <Route element={<RootLayout/>}>
+    <Route index element={<Home/>}></Route>
+    <Route path="/product" element={<Product/>}></Route>
+  </Route>
+))
+
+
 
 
 
@@ -52,53 +65,13 @@ function App() {
 
   return (
     <>
-      <Home />
-
-      <Container className={"py-15"}>
-        <h1 className="py-4 font-bold font-dm">New Arrivals</h1>
-
-        <Slider className="flex justify-between" {...settings}>
-
-
-          {data.map((item) => (
-            <div className="w-3/12 pl-3 bg-[rgba(244,244,244,0.61)] py-4">
-              <>
-                
-
-                <button className="border-[2px] py-2 px-10 bg-[#000] text-[#fff]">10%</button>
-                
-                <img className="w-[300px] h-[320px]" src={item.thumbnail} alt="" />
-                <div className="pr-14">
-
-                  <div className="flex items-center gap-2 justify-end">
-                    <p>Add to Wish List</p>
-                    <HiHeart />
-                  </div>
-                  <div className="flex items-center gap-2 justify-end">
-                    <p>Compare</p>
-                    <IoGitCompare />
-                  </div>
-                  <div className="flex items-center gap-2 justify-end">
-                    <p className="font-bold">Add to Cart</p>
-                    <FaCartShopping />
-                  </div>
-
-                </div>
-                <div className="flex justify-between pr-15 pt-10">
-                  <div className="">Basic Crew Neck Tee</div>
-                  <div className="">$44.00</div>
-                </div>
-                <div className="">Black</div>
-              </>
-            </div>
-          ))}
-
-
-
-        </Slider>
-      </Container>
+    <RouterProvider router={router}/>
     </>
   )
 }
 
 export default App
+    
+
+
+

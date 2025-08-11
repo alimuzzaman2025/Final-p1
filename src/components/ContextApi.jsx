@@ -17,7 +17,7 @@ useEffect(()=>{
 },[])
 
   return (
-    <ApiData value={info}>{children}</ApiData>
+    <ApiData.Provider value={info}>{children}</ApiData.Provider>
   )
 }
 
