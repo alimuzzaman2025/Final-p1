@@ -8,6 +8,7 @@ import Ads2 from '../components/Ads2'
 import SpecialOffer from '../components/SpecialOffer'
 import Newarrivals from '../components/Newarrivals'
 
+
 const Home = () => {
     return (
         <>
@@ -19,6 +20,7 @@ const Home = () => {
             <BestSeller />
             <Ads2 />
             <SpecialOffer />
+            
            
             
         </>

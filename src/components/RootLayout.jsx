@@ -3,6 +3,7 @@ import Header from './Header'
 import Navbar from './Navbar'
 import { Outlet } from 'react-router-dom'
 import Footer from './Footer'
+import Post from './Post'
 
 const RootLayout = () => {
   return (
@@ -10,6 +11,7 @@ const RootLayout = () => {
         <Header/>
         <Navbar/>
         <Outlet/>
+        
         <Footer/>
     </>
   )
