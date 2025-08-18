@@ -24,7 +24,10 @@ const Product = () => {
     for(let i = 0; i < Math.ceil(info.length / perPage); i++){
         pageNumber.push(i)
     }
-    console.log(pageNumber);
+    let paginate = (index)=>{
+      setCurrentPage(index + 1)
+      
+    }
     
     
     
@@ -62,7 +65,7 @@ const Product = () => {
               </div>
             </div>
             <Post allPage={allPage}/>
-            <Pagination pageNumber={pageNumber}/>
+            <Pagination pageNumber={pageNumber} paginate={paginate}/>
           </div>
         </div>
       </Container>
