@@ -13,11 +13,13 @@ import Product from "./pages/Product";
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 import { RouterProvider } from "react-router";
 import RootLayout from "./components/RootLayout";
+import ProductDetails from "./pages/ProductDetails";
 
 let router = createBrowserRouter(createRoutesFromElements(
   <Route element={<RootLayout/>}>
     <Route index element={<Home/>}></Route>
     <Route path="/product" element={<Product/>}></Route>
+    <Route path="/product/:id" element={<ProductDetails/>}></Route>
   </Route>
 ))
 
