@@ -15,7 +15,8 @@ const Product = () => {
     let [perPage, setPerPage] = useState(6)
     let [currentPage, setCurrentPage] = useState(1)
     let [categoryp, setCategoryp] = useState([])
-    let [filterShow, setFilterShow] =useState([])
+    let [filterShow, setFilterShow] = useState([])
+    let [listItem, setListItem] = useState("")
 
     let lastPage = perPage * currentPage
     let firstPage = lastPage - perPage
@@ -57,6 +58,15 @@ let handleCategory = (citem) =>{
   
 }
 
+let handleAll = () =>{
+  setFilterShow("")
+  
+}
+
+let handleListItem = () =>{
+  setListItem("active");
+  
+}
 
 
 
@@ -79,6 +89,7 @@ let handleCategory = (citem) =>{
           <div className='w-1/4'>
             <h2 className='font-dm font-bold text-[20px] text-[#262626]'>Shop by Category</h2>
             <ul>
+              <li onClick={handleAll}className='font-dm font-normal text-[14px] capitalize text-[#262626]'>All Product</li>
               {categoryp.map((item)=>(
                 <li onClick={()=>handleCategory(item)} className='font-dm font-normal text-[14px] capitalize text-[#262626]'>{item}</li>
                 ))}
@@ -88,8 +99,12 @@ let handleCategory = (citem) =>{
             <div className='flex justify-between'>
               <div className=''>
                 <div className='flex gap-2'>
-                  <FaListOl />
-                  <IoMdGrid />
+                  <div className='p-3' onClick={()=>setListItem("")}>
+                    <IoMdGrid />
+                  </div>
+                  <div onClick={handleListItem} className='bg-[red] p-3'>
+                    <FaListOl />
+                  </div>
                 </div>
               </div>
               <div className='text-end'>
@@ -101,7 +116,7 @@ let handleCategory = (citem) =>{
                 </select>
               </div>
             </div>
-            <Post allPage={allPage} filterShow={filterShow}/>
+            <Post allPage={allPage} filterShow={filterShow} listItem={listItem}/>
             <Pagination pageNumber={pageNumber} paginate={paginate} next={next} prev={prev} currentPage={currentPage}/>
           </div>
         </div>

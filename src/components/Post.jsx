@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Newarrival1 from "../assets/newarrival1.png"
 import { Link } from 'react-router-dom'
 import { HiHeart } from 'react-icons/hi'
@@ -6,14 +6,19 @@ import { IoGitCompareSharp } from 'react-icons/io5'
 import { FaShoppingCart } from 'react-icons/fa'
 import Product from '../pages/Product'
 
-const Post = ({allPage,filterShow}) => {
-    console.log(filterShow);
+const Post = ({allPage,filterShow,listItem}) => {
     
+    let [cateFilterShow, setCateFilterShow] = useState([])
+    
+    useEffect(()=>{
+        let cateall = filterShow.slice(0,5)
+        setCateFilterShow(cateall)
+    },[filterShow])
     
     return (
         <>
         <div className='flex flex-wrap justify-between'>
-            {filterShow.length > 0 ? filterShow.map((item)=>(
+            {cateFilterShow.length > 0 ? cateFilterShow.map((item)=>(
         <div className='w-[32%]'>
             <div className='relative group'>
                 <Link to={`/product/${item.id}`}>
@@ -35,7 +40,8 @@ const Post = ({allPage,filterShow}) => {
                 <p>${item.price}</p>
             </div>
         </div>
-        )): allPage.map((item)=>(
+        )): <div className={`${listItem == "active" ? 'w-full': 'w-full flex flex-wrap'}`}>
+        {allPage.map((item)=>(
         <div className='w-[32%]'>
             <div className='relative group'>
                 <Link to={`/product/${item.id}`}>
@@ -58,6 +64,7 @@ const Post = ({allPage,filterShow}) => {
             </div>
         </div>
         ))}
+        </div> }
 
         </div>
         </>
