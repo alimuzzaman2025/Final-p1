@@ -11,7 +11,7 @@ const RootLayout = () => {
         <Header/>
         <Navbar/>
         <Outlet/>
-        
+        <Post/>
         <Footer/>
     </>
   )
