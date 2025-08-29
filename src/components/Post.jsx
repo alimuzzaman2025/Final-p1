@@ -6,73 +6,85 @@ import { IoGitCompareSharp } from 'react-icons/io5'
 import { FaShoppingCart } from 'react-icons/fa'
 import Product from '../pages/Product'
 
-const Post = ({allPage,filterShow,listItem}) => {
-    
+const Post = ({ allPage, filterShow, listItem }) => {
+
     let [cateFilterShow, setCateFilterShow] = useState([])
-    
-    useEffect(()=>{
-        let cateall = filterShow.slice(0,5)
+
+    useEffect(() => {
+        let cateall = filterShow.slice(0, 5)
         setCateFilterShow(cateall)
-    },[filterShow])
-    
+    }, [filterShow])
+
     return (
         <>
-        <div className='flex flex-wrap justify-between'>
-            {cateFilterShow.length > 0 ? cateFilterShow.map((item)=>(
-        <div className='w-[32%]'>
-            <div className='relative group'>
-                <Link to={`/product/${item.id}`}>
-                    <img src={item.thumbnail} alt="" />
-                </Link>
-                <div className='bg-[#fff] absolute left-0 bottom-0 w-full opacity-0 group-hover:opacity-100'>
-                    <ul className='pr-2 pt-4 pb-4'>
-                        <li className='flex justify-end items-center gap-4'><span>Add to Wish List</span><HiHeart /></li>
-                        <li className='flex justify-end items-center gap-4 py-2'><span>Compare</span><IoGitCompareSharp /></li>
-                        <li className='flex justify-end items-center gap-4'><span>Add to Cart</span><FaShoppingCart /></li>
-                    </ul>
-                </div>
-            </div>
-            <div className='flex justify-between'>
-                <div className=''>
-                    <h2>{item.title}</h2>
-                    <p>Black</p>
-                </div>
-                <p>${item.price}</p>
-            </div>
-        </div>
-        )): <div className={`${listItem == "active" ? 'w-full': 'w-full flex flex-wrap'}`}>
-        {allPage.map((item)=>(
-        <div className='w-[32%]'>
-            <div className='relative group'>
-                <Link to={`/product/${item.id}`}>
-                    <img src={item.thumbnail} alt="" />
-                </Link>
-                <div className='bg-[#fff] absolute left-0 bottom-0 w-full opacity-0 group-hover:opacity-100'>
-                    <ul className='pr-2 pt-4 pb-4'>
-                        <li className='flex justify-end items-center gap-4'><span>Add to Wish List</span><HiHeart /></li>
-                        <li className='flex justify-end items-center gap-4 py-2'><span>Compare</span><IoGitCompareSharp /></li>
-                        <li className='flex justify-end items-center gap-4'><span>Add to Cart</span><FaShoppingCart /></li>
-                    </ul>
-                </div>
-            </div>
-            <div className='flex justify-between'>
-                <div className=''>
-                    <h2>{item.title}</h2>
-                    <p>Black</p>
-                </div>
-                <p>${item.price}</p>
-            </div>
-        </div>
-        ))}
-        </div> }
+            <div className=''>
+                {cateFilterShow.length > 0 ?
+                    <>
+                        <div className="flex flex-wrap justify-between">
+                            {
+                                cateFilterShow.map((item) => (
+                                    <div className='w-[32%]'>
+                                        <div className='relative group'>
+                                            <Link to={`/product/${item.id}`}>
+                                                <img src={item.thumbnail} alt="" />
+                                            </Link>
+                                            <div className='bg-[#fff] absolute left-0 bottom-0 w-full opacity-0 group-hover:opacity-100'>
+                                                <ul className='pr-2 pt-4 pb-4'>
+                                                    <li className='flex justify-end items-center gap-4'><span>Add to Wish List</span><HiHeart /></li>
+                                                    <li className='flex justify-end items-center gap-4 py-2'><span>Compare</span><IoGitCompareSharp /></li>
+                                                    <li className='flex justify-end items-center gap-4'><span>Add to Cart</span><FaShoppingCart /></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <div className=''>
+                                                <h2>{item.title}</h2>
+                                                <p>Black</p>
+                                            </div>
+                                            <p>${item.price}</p>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        <div>
+                            <h2>hello</h2>
+                        </div>
+                    </>
 
-        </div>
+                    : <div className={`${listItem == "active" ? 'w-full' : 'w-full flex flex-wrap'}`}>
+                        {allPage.map((item) => (
+                            <div className='w-[32%]'>
+                                <div className='relative group'>
+                                    <Link to={`/product/${item.id}`}>
+                                        <img src={item.thumbnail} alt="" />
+                                    </Link>
+                                    <div className='bg-[#fff] absolute left-0 bottom-0 w-full opacity-0 group-hover:opacity-100'>
+                                        <ul className='pr-2 pt-4 pb-4'>
+                                            <li className='flex justify-end items-center gap-4'><span>Add to Wish List</span><HiHeart /></li>
+                                            <li className='flex justify-end items-center gap-4 py-2'><span>Compare</span><IoGitCompareSharp /></li>
+                                            <li className='flex justify-end items-center gap-4'><span>Add to Cart</span><FaShoppingCart /></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <div className=''>
+                                        <h2>{item.title}</h2>
+                                        <p>Black</p>
+                                    </div>
+                                    <p>${item.price}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>}
+            </div>
         </>
     )
 }
 
 export default Post
 
-        
+
+
 
 

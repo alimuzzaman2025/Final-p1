@@ -44,13 +44,14 @@ function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className="absolute top-[50%] left-[30px] bg-[red] w-[40px] h-[40px] leading-[40px] rounded-full text-center text-[#fff] translate-y-[-50%] cursor-pointer z-[1]" onClick={onClick}
+      className="absolute top-[50%] left-[30px] bg-[red] w-[40px] h-[40px] leading-[40px] rounded-full text-center text-[#fff] translate-y-[-50%] cursor-pointer z-[1]"
+
+      onClick={onClick}
     >
       <GrFormPrevious className="inline-block" />
     </div>
   );
 }
-
 
 function App() {
   let data = useContext(ApiData)
