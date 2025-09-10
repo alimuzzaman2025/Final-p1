@@ -11,73 +11,81 @@ import { useContext, useEffect, useState } from 'react'
 
 
 const Product = () => {
-    let info = useContext(ApiData)
-    let [perPage, setPerPage] = useState(6)
-    let [currentPage, setCurrentPage] = useState(1)
-    let [categoryp, setCategoryp] = useState([])
-    let [filterShow, setFilterShow] = useState([])
-    let [listItem, setListItem] = useState("")
+  let info = useContext(ApiData)
+  let [perPage, setPerPage] = useState(6)
+  let [currentPage, setCurrentPage] = useState(1)
+  let [categoryp, setCategoryp] = useState([])
+  let [filterShow, setFilterShow] = useState([])
+  let [listItem, setListItem] = useState("")
+  let [brand, setBrand] = useState([])
 
-    let lastPage = perPage * currentPage
-    let firstPage = lastPage - perPage
-    let allPage = info.slice(firstPage,lastPage)
-    
 
-    let pageNumber = []
-    for(let i = 0; i < Math.ceil(info.length / perPage); i++){
-        pageNumber.push(i)
-    }
-    let paginate = (index)=>{
-      setCurrentPage(index + 1)
-      
-    }
-    let next = () =>{
-      if(currentPage < pageNumber.length){
-        setCurrentPage((state)=> state + 1)
-      }
-    }
-let prev = () =>{
-  if(currentPage > 1){
-    setCurrentPage((state)=> state - 1)
+  let lastPage = perPage * currentPage
+  let firstPage = lastPage - perPage
+  let allPage = info.slice(firstPage, lastPage)
+
+
+  let pageNumber = []
+  for (let i = 0; i < Math.ceil(filterShow.length > 0 ? filterShow : info.length / perPage); i++) {
+    pageNumber.push(i)
   }
-  
-}
+  let paginate = (index) => {
+    setCurrentPage(index + 1)
 
-let handlePerPageChange = (e) =>{
-  setPerPage(e.target.value);
-  
-}
-useEffect(()=>{
-  setCategoryp([...new Set(info.map((item) =>item.category))])
-},[info])
+  }
+  let next = () => {
+    if (currentPage < pageNumber.length) {
+      setCurrentPage((state) => state + 1)
+    }
+  }
+  let prev = () => {
+    if (currentPage > 1) {
+      setCurrentPage((state) => state - 1)
+    }
 
-let handleCategory = (citem) =>{
-  let cateFilter = info.filter((item)=>item.category == citem)
-  setFilterShow(cateFilter);
-  
-  
-}
+  }
 
-let handleAll = () =>{
-  setFilterShow("")
-  
-}
+  let handlePerPageChange = (e) => {
+    setPerPage(e.target.value);
 
-let handleListItem = () =>{
-  setListItem("active");
-  
-}
+  }
+  useEffect(() => {
+    setCategoryp([...new Set(info.map((item) => item.category))])
+    setBrand([...new Set(info.map((item) => item.brand))])
+  }, [info])
+
+  let handleCategory = (citem) => {
+    let cateFilter = info.filter((item) => item.category == citem)
+    setFilterShow(cateFilter);
 
 
+  }
 
+  let handleAll = () => {
+    setFilterShow("")
+
+  }
+
+  let handleListItem = () => {
+    setListItem("active");
+
+  }
+  let handleBrand = (bitem) =>{
+    let brandFilter = info.filter((item)=> item.brand == bitem)
+    setFilterShow(brandFilter);
     
-    
-    
+  }
 
-    
-    
-    
-  
+
+
+
+
+
+
+
+
+
+
   return (
     <div>
       <Container>
@@ -87,22 +95,33 @@ let handleListItem = () =>{
         </div>
         <div className='flex'>
           <div className='w-1/4'>
-            <h2 className='font-dm font-bold text-[20px] text-[#262626]'>Shop by Category</h2>
-            <ul>
-              <li onClick={handleAll}className='font-dm font-normal text-[14px] capitalize text-[#262626]'>All Product</li>
-              {categoryp.map((item)=>(
-                <li onClick={()=>handleCategory(item)} className='font-dm font-normal text-[14px] capitalize text-[#262626]'>{item}</li>
+            <div className=''>
+              <h2 className='font-dm font-bold text-[20px] text-[#262626]'>Shop by Category</h2>
+              <ul>
+                <li onClick={handleAll} className='font-dm font-normal text-[14px] capitalize text-[#262626]'>All Product</li>
+                {categoryp.map((item) => (
+                  <li onClick={() => handleCategory(item)} className='font-dm font-normal text-[14px] capitalize text-[#262626]'>{item}</li>
                 ))}
               </ul>
+            </div>
+            <div className=''>
+              <h2 className='font-dm font-bold text-[20px] text-[#262626]'>Brand</h2>
+              <ul>
+                {brand.map((item)=>(
+                  
+                  <li onClick={()=>handleBrand(item)}>{item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className='w-3/4'>
             <div className='flex justify-between'>
               <div className=''>
                 <div className='flex gap-2'>
-                  <div className='p-3' onClick={()=>setListItem("")}>
+                  <div onClick={() => setListItem("")} className={`${listItem == "active" ? "" : "bg-[green]"} p-3 border-2`}>
                     <IoMdGrid />
                   </div>
-                  <div onClick={handleListItem} className='bg-[red] p-3'>
+                  <div onClick={handleListItem} className={`${listItem == "active" ? "bg-[green]" : ""} p-3 border-2`}>
                     <FaListOl />
                   </div>
                 </div>
@@ -116,8 +135,8 @@ let handleListItem = () =>{
                 </select>
               </div>
             </div>
-            <Post allPage={allPage} filterShow={filterShow} listItem={listItem}/>
-            <Pagination pageNumber={pageNumber} paginate={paginate} next={next} prev={prev} currentPage={currentPage}/>
+            <Post allPage={allPage} filterShow={filterShow} listItem={listItem} />
+            <Pagination pageNumber={pageNumber} paginate={paginate} next={next} prev={prev} currentPage={currentPage} />
           </div>
         </div>
       </Container>

@@ -7,13 +7,27 @@ import { FaShoppingCart } from 'react-icons/fa'
 import Product from '../pages/Product'
 
 const Post = ({ allPage, filterShow, listItem }) => {
-
     let [cateFilterShow, setCateFilterShow] = useState([])
+    let [show, setShow] = useState(true)
+
 
     useEffect(() => {
         let cateall = filterShow.slice(0, 5)
         setCateFilterShow(cateall)
     }, [filterShow])
+
+    let handleShow = () =>{
+        setCateFilterShow(filterShow)
+        setShow(false)
+    }
+
+    let handleLess = () =>{
+               let cateall = filterShow.slice(0, 5)
+        setCateFilterShow(cateall)
+          setShow(true)
+    }
+
+
 
     return (
         <>
@@ -47,9 +61,11 @@ const Post = ({ allPage, filterShow, listItem }) => {
                                 ))
                             }
                         </div>
-                        <div>
-                            <h2>hello</h2>
-                        </div>
+                        {filterShow.length > 5 && show ? <h2 onClick={handleShow}>Show All</h2> 
+                        : filterShow.length > 5 &&
+                        <h2 onClick={handleLess}>Less</h2>
+                        }
+
                     </>
 
                     : <div className={`${listItem == "active" ? 'w-full' : 'w-full flex flex-wrap'}`}>
