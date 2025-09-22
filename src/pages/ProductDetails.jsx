@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 import Container from '../components/Container'
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 
 const ProductDetails = () => {
+  let navigate = useNavigate()
   let productId = useParams()
   let [singleProduct, setSingleProduct] = useState([])
   console.log(productId);
@@ -27,6 +29,16 @@ const ProductDetails = () => {
     )
   })
 
+  let discount = (singleProduct.price * singleProduct.discountPercentage) / 100
+  let mainPrice = singleProduct.price - discount
+
+  let handleCart = () => {
+    toast("Add to Cart successfully done");
+    setTimeout(() => {
+      navigate("/cart")
+    }, 2000)
+  }
+
 
 
   return (
@@ -47,12 +59,24 @@ const ProductDetails = () => {
               <div className=''>
                 <h2>Review</h2>
               </div>
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+              />
             </div>
             <div className='flex items-center gap-5 py-[24px]'>
               <div className=''>
-                <del className='font-dm text-[#767676] text-[16px] font-normal'>$88.00</del>
+                <del className='font-dm text-[#767676] text-[16px] font-normal'>${singleProduct.price}</del>
               </div>
-              <div className=''><h5>$44.00</h5></div>
+              <div className=''><h5>${mainPrice.toFixed(2)}</h5></div>
             </div>
             <div className='flex items-center py-[30px] border-t-1'>
               <div className='font-bold font-dm text-[#262626] w-[59px] leading-[23px]'>COLOR:</div>
@@ -75,10 +99,6 @@ const ProductDetails = () => {
               </div>
             </div>
             <div className='py-[30px] border-b-1'>
-              <label className='pr-6' htmlFor="">QUANTITY:</label>
-              <input className="w-36 h-6 border-1 pl-2" type="text" placeholder='- 1 +'/>
-            </div>
-            <div className='py-[30px] border-b-1'>
               <div className=''>STATUS:</div>
               <div className=''></div>
             </div>
@@ -86,8 +106,8 @@ const ProductDetails = () => {
               <div className=''>
                 <button><a className="w-36 h-6 border-1 py-2 px-12 bg-[#000] text-[#fff]" href="">Add to Wish List</a></button>
               </div>
-              <div className=''>
-                <button><a className="w-36 h-6 border-1 py-2 px-16 bg-[#000] text-[#fff]" href="#">Add to Cart</a></button>
+              <div onClick={handleCart}>
+                <button><a className="w-36 h-6 border-1 py-2 px-16 bg-[#000] text-[#fff]">Add to Cart</a></button>
               </div>
             </div>
           </div>
@@ -98,7 +118,7 @@ const ProductDetails = () => {
 }
 
 export default ProductDetails
-                
-              
+
+
 
 

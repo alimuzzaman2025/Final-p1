@@ -18,6 +18,8 @@ const Product = () => {
   let [filterShow, setFilterShow] = useState([])
   let [listItem, setListItem] = useState("")
   let [brand, setBrand] = useState([])
+  let [low, setLow] = useState({})
+  let [high, setHigh] = useState({})
 
 
   let lastPage = perPage * currentPage
@@ -75,7 +77,15 @@ const Product = () => {
     setFilterShow(brandFilter);
     
   }
+let handlePrice = (value) => {
+  setLow(value.low);
+  setHigh(value.high);
+  let priceShow = info.filter((item) => item.price > value.low && item.price < value.high)
+  setFilterShow(priceShow);
+  
+}
 
+  
 
 
 
@@ -95,7 +105,7 @@ const Product = () => {
         </div>
         <div className='flex'>
           <div className='w-1/4'>
-            <div className=''>
+            <div className='h-[300px] overflow-y-scroll'>
               <h2 className='font-dm font-bold text-[20px] text-[#262626]'>Shop by Category</h2>
               <ul>
                 <li onClick={handleAll} className='font-dm font-normal text-[14px] capitalize text-[#262626]'>All Product</li>
@@ -111,6 +121,13 @@ const Product = () => {
                   
                   <li onClick={()=>handleBrand(item)}>{item}</li>
                 ))}
+              </ul>
+            </div>
+            <div className=''>
+              <h2 className='font-dm font-bold text-[20px] text-[#262626]'>Price</h2>
+              <ul>
+                <li onClick={()=>handlePrice({low:0, high:10})}>$0 - $9</li>
+                <li onClick={()=>handlePrice({low:10, high:20})}>$10 - $19</li>
               </ul>
             </div>
           </div>
