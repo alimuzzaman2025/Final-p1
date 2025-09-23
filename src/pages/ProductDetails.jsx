@@ -4,13 +4,16 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 import Container from '../components/Container'
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { useDispatch } from 'react-redux'
+import { addTocart } from '../components/Slice/productSlice'
 
 
 const ProductDetails = () => {
   let navigate = useNavigate()
+  let dispatch = useDispatch()
   let productId = useParams()
   let [singleProduct, setSingleProduct] = useState([])
-  console.log(productId);
+
 
   let getProductId = () => {
     axios.get(`https://dummyjson.com/products/${productId.id}`).then((response) => {
@@ -32,7 +35,9 @@ const ProductDetails = () => {
   let discount = (singleProduct.price * singleProduct.discountPercentage) / 100
   let mainPrice = singleProduct.price - discount
 
-  let handleCart = () => {
+  let handleCart = (item) => {
+    dispatch(addTocart({ ...item, qun:1 }))
+    
     toast("Add to Cart successfully done");
     setTimeout(() => {
       navigate("/cart")
@@ -106,7 +111,7 @@ const ProductDetails = () => {
               <div className=''>
                 <button><a className="w-36 h-6 border-1 py-2 px-12 bg-[#000] text-[#fff]" href="">Add to Wish List</a></button>
               </div>
-              <div onClick={handleCart}>
+              <div onClick={()=>handleCart(singleProduct)}>
                 <button><a className="w-36 h-6 border-1 py-2 px-16 bg-[#000] text-[#fff]">Add to Cart</a></button>
               </div>
             </div>
