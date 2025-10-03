@@ -25,11 +25,17 @@ export const productSlice = createSlice({
         state.cartItem[action.payload].qun -= 1
         localStorage.setItem("Cart", JSON.stringify(state.cartItem))
       }
+      },
+      productRemove: (state, action)=>{
+        state.cartItem.splice(action.payload, 1)
+        localStorage.setItem("Cart", JSON.stringify(state.cartItem))
       }
+
   },
+
 })
 
-export const {addTocart, increment, decrement} = productSlice.actions
+export const {addTocart, increment, decrement, productRemove} = productSlice.actions
 
 export default productSlice.reducer
 
