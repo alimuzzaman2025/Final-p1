@@ -5,8 +5,11 @@ import { HiHeart } from 'react-icons/hi'
 import { IoGitCompareSharp } from 'react-icons/io5'
 import { FaShoppingCart } from 'react-icons/fa'
 import Product from '../pages/Product'
+import { useDispatch } from 'react-redux'
+import { addTocart } from './Slice/productSlice'
 
 const Post = ({ allPage, filterShow, listItem }) => {
+    let dispatch = useDispatch()
     let [cateFilterShow, setCateFilterShow] = useState([])
     let [show, setShow] = useState(true)
 
@@ -79,7 +82,7 @@ const Post = ({ allPage, filterShow, listItem }) => {
                                         <ul className='pr-2 pt-4 pb-4'>
                                             <li className='flex justify-end items-center gap-4'><span>Add to Wish List</span><HiHeart /></li>
                                             <li className='flex justify-end items-center gap-4 py-2'><span>Compare</span><IoGitCompareSharp /></li>
-                                            <li className='flex justify-end items-center gap-4'><span>Add to Cart</span><FaShoppingCart /></li>
+                                            <li onClick={() => dispatch(addTocart({...item, qun: 1}))}className='flex justify-end items-center gap-4'><span>Add to Cart</span><FaShoppingCart /></li>
                                         </ul>
                                     </div>
                                 </div>
