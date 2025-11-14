@@ -53,6 +53,9 @@ const Banner = () => {
                 <div className=''>
                     <img src={Ban} alt="" />
                 </div>
+                <div className=''>
+                    <img src={Ban} alt="" />
+                </div>
             </Slider>
         </section>
     )

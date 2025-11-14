@@ -21,6 +21,8 @@ const Navbar = () => {
     let [cartShow, setCartShow] = useState(false)
     let [search, setsearch] = useState('')
     let [searchFilter, setSearchFilter] = useState([])
+    let [selectedIndex, setSelectedIndex] = useState(-1)
+    let searchBoxRef = useRef()
     let cartRef = useRef()
     let cateRef = useRef();
     let showCartRef = useRef();
@@ -55,21 +57,78 @@ const Navbar = () => {
     let handleCart = () => {
         navigate("/cart")
     }
-    let handleSearch = (e) => {
+    // let handleSearch = (e) => {
+    //     setsearch(e.target.value);
+    //     if (e.target.value == "") {
+    //         setSearchFilter([])
+    //     } else {
+    //         let searchOne = info.filter((item) => item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+    //         setSearchFilter(searchOne);
+    //     }
+    // }
+
+
+
+    const handleSearch = (e) => {
         setsearch(e.target.value);
-        if (e.target.value == "") {
-            setSearchFilter([])
-        } else {
-            let searchOne = info.filter((item) => item.title.toLowerCase().includes(e.target.value.toLowerCase()))
-            setSearchFilter(searchOne);
-        }
+        // if (e.target.value == "")
+
+    const value = e.target.value
+    // setSearch(value)
+    if (value.trim() === '') {
+      setSearchFilter([])
+      setSelectedIndex(-1)
+    } else {
+      const searchResults = info.filter((item) =>
+        item.title.toLowerCase().includes(value.toLowerCase())
+      )
+      setSearchFilter(searchResults)
+      setSelectedIndex(-1)
     }
+    // else {
+    //         let searchOne = info.filter((item) => item.title.toLowerCase().includes(e.target.value.toLowerCase()))
+    //         setSearchFilter(searchOne);
+    //     }
+  }
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e) => {
+    if (searchFilter.length === 0) return
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setSelectedIndex((prev) =>
+        prev < searchFilter.length - 1 ? prev + 1 : 0
+      )
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setSelectedIndex((prev) =>
+        prev > 0 ? prev - 1 : searchFilter.length - 1
+      )
+    } else if (e.key === 'Enter') {
+      e.preventDefault()
+      if (selectedIndex >= 0 && searchFilter[selectedIndex]) {
+        handleSearchItem(searchFilter[selectedIndex])
+      }
+    }
+  }
+
+
+
+
+
+
     let handleSearchItem = (item) =>{
         navigate(`/product/${item.id}`)
         setSearchFilter([])
         setsearch("")
+        setSelectedIndex(-1)
     }
+    let handleCheckout = () =>{
+        navigate("/checkout")
+        setCartShow(false)
 
+    }
 
 
 
@@ -96,27 +155,46 @@ const Navbar = () => {
                             </div>
                         }
                     </div>
-                    <div className='w-2/4 relative'>
-                        <div className='relative'>
-                            <input onChange={handleSearch} className='w-full border-2 border-[#262626] py-3 px-3 rounded-full bg-[white]' type="search" value={search} placeholder='search...' />
-                            <div className='absolute top-[50%] right-4 translate-y-[-50%]'>
-                                <IoSearch />
-                            </div>
-                        </div>
-                        {searchFilter.length > 0 && 
-                        <div className='absolute left-0 top-[65px] bg-gray-500 w-full z-[999] h-[400px] overflow-y-scroll'>
-                            {searchFilter.map((item, id) => (
-                                <div onClick={()=>handleSearchItem(item)}className='flex justify-between flex-wrap px-5'>
-                                    <div className=''>
-                                        <h2>{item.title}</h2>
-                                    </div>
-                                    <div className=''>
-                                        <img className='h-[80px] w-[80px] items-center' src={item.thumbnail} alt="" />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        }
+
+
+                    <div className="relative w-2/4" ref={searchBoxRef}>
+      <div className="relative">
+        <input
+          onChange={handleSearch}
+          onKeyDown={handleKeyDown}
+          className="w-full border-2 border-[#262626] py-3 px-3 rounded-full bg-white"
+          type="search"
+          value={search}
+          placeholder="search..."
+        />
+        <div className="absolute top-[50%] right-4 translate-y-[-50%]">
+          <IoSearch />
+        </div>
+      </div>
+
+      {/* Search dropdown */}
+      {searchFilter.length > 0 && (
+        <div className="absolute left-0 top-[65px] bg-gray-500 w-full z-[999] max-h-[400px] overflow-y-scroll rounded-b-lg">
+          {searchFilter.map((item, index) => (
+            <div
+              key={item.id}
+              onClick={() => handleSearchItem(item)}
+              className={`flex justify-between items-center px-5 py-2 cursor-pointer transition-all ${
+                selectedIndex === index
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-gray-500 text-black'
+              }`}
+            >
+              <h2 className="font-medium">{item.title}</h2>
+              <img
+                className="h-[60px] w-[60px] object-cover rounded"
+                src={item.thumbnail}
+                alt={item.title}
+              />
+            </div>
+          ))}
+        </div>
+      )}
                     </div>
                     <div className='w-1/4 relative'>
                         <div className='flex justify-end gap-5'>
@@ -168,9 +246,9 @@ const Navbar = () => {
                                             <div onClick={handleCart} className=''>
                                                 <button className=''><a className="py-2 px-5 border-2 border-[#000] bg-[#000] text-[#fff] hover:bg-[#fff] hover:text-[#000]" href="">View Cart</a></button>
                                             </div>
-                                            <div className=''>
+                                            <div className='' onClisk={handleCheckout}>
                                                 <button className=''><Link
-                                                    className="py-2 px-5 border-2 border-[#000] bg-[#000] text-[#fff] hover:bg-[#fff] hover:text-[#000]" to="/checkout">Checkout</Link></button>
+                                                    className="py-2 px-5 border-2 border-[#000] bg-[#000] text-[#fff] hover:bg-[#fff] hover:text-[#000]">Checkout</Link></button>
                                             </div>
                                         </div>
                                     </div>
