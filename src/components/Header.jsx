@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 const Header = () => {
   return (
     <Container >
-        <div className='flex py-4'>
+        <div className='flex py-5'>
         <div className=''>
             <img src={Logo} alt="" />
         </div>

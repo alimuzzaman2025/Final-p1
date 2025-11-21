@@ -133,7 +133,7 @@ const Navbar = () => {
 
 
     return (
-        <section className='bg-[#F5F5F3] py-3'>
+        <section className='bg-[#F5F5F3] py-5'>
             <Container>
                 <div className='flex items-center'>
                     <div className='w-1/4 relative'>
